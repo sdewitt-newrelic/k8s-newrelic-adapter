@@ -6,20 +6,20 @@ metadata:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: k8s-cloudwatch-adapter:system:auth-delegator
+  name: k8s-newrelic-adapter:system:auth-delegator
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: system:auth-delegator
 subjects:
 - kind: ServiceAccount
-  name: k8s-cloudwatch-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: k8s-cloudwatch-adapter-auth-reader
+  name: k8s-newrelic-adapter-auth-reader
   namespace: kube-system
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -27,31 +27,35 @@ roleRef:
   name: extension-apiserver-authentication-reader
 subjects:
 - kind: ServiceAccount
-  name: k8s-cloudwatch-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: k8s-cloudwatch-adapter
-  name: k8s-cloudwatch-adapter
+    app: k8s-newrelic-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: k8s-cloudwatch-adapter
+      app: k8s-newrelic-adapter
   template:
     metadata:
       labels:
-        app: k8s-cloudwatch-adapter
-      name: k8s-cloudwatch-adapter
+        app: k8s-newrelic-adapter
+      name: k8s-newrelic-adapter
     spec:
-      serviceAccountName: k8s-cloudwatch-adapter
+      serviceAccountName: k8s-newrelic-adapter
       containers:
-      - name: k8s-cloudwatch-adapter
-        image: chankh/k8s-cloudwatch-adapter:v0.8.0
+      - name: k8s-newrelic-adapter
+        image: kuperiu/k8s-newrelic-adapter
+        imagePullPolicy: Never
+        env:
+          - name: NEW_RELIC_API_KEY
+            value: NRAK-KY1NBFGBWWB405AS8C9UV0879PE
         args:
         - /adapter
         - --cert-dir=/tmp
@@ -73,26 +77,26 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: k8s-cloudwatch-adapter-resource-reader
+  name: k8s-newrelic-adapter-resource-reader
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: k8s-cloudwatch-adapter-resource-reader
+  name: k8s-newrelic-adapter-resource-reader
 subjects:
 - kind: ServiceAccount
-  name: k8s-cloudwatch-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 ---
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: k8s-cloudwatch-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8s-cloudwatch-adapter
+  name: k8s-newrelic-adapter
   namespace: custom-metrics
 spec:
   ports:
@@ -103,7 +107,7 @@ spec:
     port: 80
     targetPort: 8080
   selector:
-    app: k8s-cloudwatch-adapter
+    app: k8s-newrelic-adapter
 ---
 apiVersion: apiregistration.k8s.io/v1beta1
 kind: APIService
@@ -111,7 +115,7 @@ metadata:
   name: v1beta1.external.metrics.k8s.io
 spec:
   service:
-    name: k8s-cloudwatch-adapter
+    name: k8s-newrelic-adapter
     namespace: custom-metrics
   group: external.metrics.k8s.io
   version: v1beta1
@@ -122,7 +126,7 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: k8s-cloudwatch-adapter:external-metrics-reader
+  name: k8s-newrelic-adapter:external-metrics-reader
 rules:
 - apiGroups:
   - external.metrics.k8s.io
@@ -132,7 +136,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: k8s-cloudwatch-adapter-resource-reader
+  name: k8s-newrelic-adapter-resource-reader
 rules:
 - apiGroups:
   - ""
@@ -147,11 +151,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: k8s-cloudwatch-adapter:external-metrics-reader
+  name: k8s-newrelic-adapter:external-metrics-reader
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: k8s-cloudwatch-adapter:external-metrics-reader
+  name: k8s-newrelic-adapter:external-metrics-reader
 subjects:
 - kind: ServiceAccount
   name: horizontal-pod-autoscaler
@@ -160,9 +164,9 @@ subjects:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: externalmetrics.metrics.aws
+  name: externalmetrics.metrics.newrelic
 spec:
-  group: metrics.aws
+  group: metrics.newrelic
   version: v1alpha1
   names:
     kind: ExternalMetric
@@ -173,12 +177,12 @@ spec:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: k8s-cloudwatch-adapter:crd-metrics-reader
+  name: k8s-newrelic-adapter:crd-metrics-reader
   labels:
-    app: k8s-cloudwatch-adapter
+    app: k8s-newrelic-adapter
 rules:
 - apiGroups:
-  - metrics.aws
+  - metrics.newrelic
   resources:
   - "externalmetrics"
   verbs:
@@ -189,14 +193,14 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: k8s-cloudwatch-adapter:crd-metrics-reader
+  name: k8s-newrelic-adapter:crd-metrics-reader
   labels:
-    app: k8s-cloudwatch-adapter
+    app: k8s-newrelic-adapter
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: k8s-cloudwatch-adapter:crd-metrics-reader
+  name: k8s-newrelic-adapter:crd-metrics-reader
 subjects:
-  - name: k8s-cloudwatch-adapter
+  - name: k8s-newrelic-adapter
     namespace: "custom-metrics"
     kind: ServiceAccount

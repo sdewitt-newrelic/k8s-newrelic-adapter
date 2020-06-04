@@ -11,7 +11,7 @@ import (
 	"k8s.io/metrics/pkg/apis/external_metrics"
 )
 
-func (p *cloudwatchProvider) GetExternalMetric(namespace string, metricSelector labels.Selector, info provider.ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error) {
+func (p *newRelicProvider) GetExternalMetric(namespace string, metricSelector labels.Selector, info provider.ExternalMetricInfo) (*external_metrics.ExternalMetricValueList, error) {
 	// Note:
 	//		metric name and namespace is used to lookup for the CRD which contains configuration to
 	//		call cloudwatch if not found then ignored and label selector is parsed for all the metrics
@@ -24,20 +24,23 @@ func (p *cloudwatchProvider) GetExternalMetric(namespace string, metricSelector 
 
 	cwRequest, found := p.metricCache.GetCloudWatchRequest(namespace, info.Metric)
 	if !found {
-		return nil, errors.NewBadRequest("no metric query found")
+		klog.V(0).Info("$$$$$$$$$$")
 	}
-
-	metricValue, err := p.cwClient.QueryCloudWatch(cwRequest)
+	klog.V(0).Info("@@@@@@@@@@")
+	test := aws.StringValue(cwRequest)
+	klog.V(0).Info("6. main  -- i  %T: &i=%p i=%v\n", test, &test, test)
+	klog.V(0).Info("@@@@@@@@@@")
+	metricValue, err := p.nrClient.Query()
 	if err != nil {
 		klog.Errorf("bad request: %v", err)
 		return nil, errors.NewBadRequest(err.Error())
 	}
 
 	var quantity resource.Quantity
-	if len(metricValue) == 0 || len(metricValue[0].Values) == 0 {
+	if metricValue == 0 {
 		quantity = *resource.NewMilliQuantity(0, resource.DecimalSI)
 	} else {
-		quantity = *resource.NewQuantity(int64(aws.Float64Value(metricValue[0].Values[0])), resource.DecimalSI)
+		quantity = *resource.NewQuantity(int64(aws.Float64Value(&metricValue)), resource.DecimalSI)
 	}
 	externalmetric := external_metrics.ExternalMetricValue{
 		MetricName: info.Metric,
@@ -53,7 +56,7 @@ func (p *cloudwatchProvider) GetExternalMetric(namespace string, metricSelector 
 	}, nil
 }
 
-func (p *cloudwatchProvider) ListAllExternalMetrics() []provider.ExternalMetricInfo {
+func (p *newRelicProvider) ListAllExternalMetrics() []provider.ExternalMetricInfo {
 	p.valuesLock.RLock()
 	defer p.valuesLock.RUnlock()
 

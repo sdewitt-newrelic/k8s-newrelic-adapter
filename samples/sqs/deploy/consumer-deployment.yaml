@@ -15,4 +15,5 @@ spec:
     spec:
       containers:
       - name: sqs-consumer
-        image: chankh/sqs-consumer-sample
+        image: testing
+        imagePullPolicy: Never

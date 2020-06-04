@@ -9,27 +9,27 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog"
 
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/aws"
 	clientset "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/clientset/versioned"
 	informers "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/informers/externalversions"
 	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/controller"
 	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/metriccache"
+	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/newrelic"
 	cwprov "github.com/awslabs/k8s-cloudwatch-adapter/pkg/provider"
 	basecmd "github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/cmd"
 	"github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/provider"
 )
 
 // CloudWatchAdapter represents a custom metrics BaseAdapter for Amazon CloudWatch
-type CloudWatchAdapter struct {
+type NewRelicAdapter struct {
 	basecmd.AdapterBase
 }
 
-func (a *CloudWatchAdapter) makeCloudWatchClient() (aws.Client, error) {
-	client := aws.NewCloudWatchClient()
+func (a *NewRelicAdapter) makeCloudWatchClient() (newrelic.Client, error) {
+	client := newrelic.NewRelicClient()
 	return client, nil
 }
 
-func (a *CloudWatchAdapter) newController(metriccache *metriccache.MetricCache) (*controller.Controller, informers.SharedInformerFactory) {
+func (a *NewRelicAdapter) newController(metriccache *metriccache.MetricCache) (*controller.Controller, informers.SharedInformerFactory) {
 	clientConfig, err := a.ClientConfig()
 	if err != nil {
 		klog.Fatalf("unable to construct client config: %v", err)
@@ -49,7 +49,7 @@ func (a *CloudWatchAdapter) newController(metriccache *metriccache.MetricCache) 
 	return controller, adapterInformerFactory
 }
 
-func (a *CloudWatchAdapter) makeProvider(cwClient aws.Client, metriccache *metriccache.MetricCache) (provider.ExternalMetricsProvider, error) {
+func (a *NewRelicAdapter) makeProvider(cwClient newrelic.Client, metriccache *metriccache.MetricCache) (provider.ExternalMetricsProvider, error) {
 	client, err := a.DynamicClient()
 	if err != nil {
 		return nil, errors.Wrap(err, "unable to construct Kubernetes client")
@@ -60,7 +60,7 @@ func (a *CloudWatchAdapter) makeProvider(cwClient aws.Client, metriccache *metri
 		return nil, errors.Wrap(err, "unable to construct RESTMapper")
 	}
 
-	cwProvider := cwprov.NewCloudWatchProvider(client, mapper, cwClient, metriccache)
+	cwProvider := cwprov.NewRelicProvider(client, mapper, cwClient, metriccache)
 	return cwProvider, nil
 }
 
@@ -69,7 +69,7 @@ func main() {
 	defer logs.FlushLogs()
 
 	// set up flags
-	cmd := &CloudWatchAdapter{}
+	cmd := &NewRelicAdapter{}
 	cmd.Name = "cloudwatch-metrics-adapter"
 	cmd.Flags().AddGoFlagSet(flag.CommandLine) // make sure we get the klog flags
 	cmd.Flags().Parse(os.Args)

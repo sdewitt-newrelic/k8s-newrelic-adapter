@@ -84,6 +84,9 @@ type MetricStat struct {
 	// Metric is a required field
 	Metric Metric `json:"metric"`
 
+	Query string `json:"query"`
+
+	AccoundID string `json:"accountId"`
 	// The period to use when retrieving the metric.
 	//
 	// Period is a required field

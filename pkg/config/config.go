@@ -78,6 +78,9 @@ type MetricStat struct {
 	// Metric is a required field
 	Metric Metric `yaml:"metric"`
 
+	Query string `yaml:"query"`
+
+	AccountID string `yaml:"accountId"`
 	// The period to use when retrieving the metric.
 	//
 	// Period is a required field

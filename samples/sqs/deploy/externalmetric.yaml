@@ -1,4 +1,4 @@
-apiVersion: metrics.aws/v1alpha1
+apiVersion: metrics.newrelic/v1alpha1
 kind: ExternalMetric
 metadata:
   name: sqs-helloworld-length
@@ -8,6 +8,8 @@ spec:
     resource: "deployment"
   queries:
     - id: sqs_helloworld_length
+      query: "SELECT"
+      accountId: 2364728
       metricStat:
         metric:
           namespace: "AWS/SQS"
