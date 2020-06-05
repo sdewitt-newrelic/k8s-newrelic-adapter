@@ -37,3 +37,11 @@ echo "test.k8s.num:5|g" | nc  -w 1 -u localhost 8125
 ```bash
 kubectl get po
 ```
+```bash
+NAME                       READY   STATUS    RESTARTS   AGE
+testing-576fdd686b-gk2kf   1/1     Running   0          46s
+testing-576fdd686b-ks9hq   1/1     Running   0          46s
+testing-576fdd686b-sg574   1/1     Running   0          46s
+testing-576fdd686b-tsh5q   1/1     Running   0          46s
+testing-576fdd686b-vvsxm   1/1     Running   0          46s
+```

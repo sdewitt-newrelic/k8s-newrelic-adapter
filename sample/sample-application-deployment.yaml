@@ -1,19 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sqs-consumer
-  annotations:
-    iam.amazonaws.com/role: k8s-pod-sqs-consume
+  name: testing
 spec:
   selector:
     matchLabels:
-      app: sqs-consumer
+      app: testing
   template:
     metadata:
       labels:
-        app: sqs-consumer
+        app: testing
     spec:
       containers:
-      - name: sqs-consumer
+      - name: testing
         image: testing
         imagePullPolicy: Never

@@ -1,11 +1,11 @@
 apiVersion: metrics.newrelic/v1alpha1
 kind: ExternalMetric
 metadata:
-  name: sqs-helloworld-length
+  name: testing
 spec:
-  name: sqs-helloworld-length
+  name: testing
   resource:
     resource: "deployment"
   queries:
-    - id: sqs_helloworld_length
+    - id: testing
       query: "SELECT latest(lior.k8s.num) FROM Metric WHERE metricName='lior.k8s.num' SINCE 5 minutes ago"
