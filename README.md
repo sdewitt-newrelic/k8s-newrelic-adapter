@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/kuperiu/k8s-newrelic-adapter.svg?branch=master)](https://travis-ci.org/kuperiu/k8s-newrelic-adapter)
 [![GitHub
 release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter/all.svg)](https://github.com/kuperiu/k8s-newrelic-adapter/releases)
+
 [![docker image
 size](https://shields.beevelop.com/docker/image/image-size/kuperiu/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 [![image
