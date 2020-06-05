@@ -9,22 +9,22 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog"
 
-	clientset "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/clientset/versioned"
-	informers "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/informers/externalversions"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/controller"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/metriccache"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/newrelic"
-	cwprov "github.com/awslabs/k8s-cloudwatch-adapter/pkg/provider"
 	basecmd "github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/cmd"
 	"github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/provider"
+	clientset "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned"
+	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/controller"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/newrelic"
+	cwprov "github.com/kuperiu/k8s-newrelic-adapter/pkg/provider"
 )
 
-// CloudWatchAdapter represents a custom metrics BaseAdapter for Amazon CloudWatch
+// NewRelicAdapter represents a custom metrics BaseAdapter for NewRelic
 type NewRelicAdapter struct {
 	basecmd.AdapterBase
 }
 
-func (a *NewRelicAdapter) makeCloudWatchClient() (newrelic.Client, error) {
+func (a *NewRelicAdapter) makeNewRelicClient() (newrelic.Client, error) {
 	client := newrelic.NewRelicClient()
 	return client, nil
 }
@@ -70,7 +70,7 @@ func main() {
 
 	// set up flags
 	cmd := &NewRelicAdapter{}
-	cmd.Name = "cloudwatch-metrics-adapter"
+	cmd.Name = "newrelic-metrics-adapter"
 	cmd.Flags().AddGoFlagSet(flag.CommandLine) // make sure we get the klog flags
 	cmd.Flags().Parse(os.Args)
 
@@ -84,23 +84,23 @@ func main() {
 	go adapterInformerFactory.Start(stopCh)
 	go controller.Run(2, time.Second, stopCh)
 
-	// create CloudWatch client
-	cwClient, err := cmd.makeCloudWatchClient()
+	// create NewRelic client
+	nrClient, err := cmd.makeNewRelicClient()
 	if err != nil {
-		klog.Fatalf("unable to construct CloudWatch client: %v", err)
+		klog.Fatalf("unable to construct NewRelic client: %v", err)
 	}
 
 	// construct the provider
-	cwProvider, err := cmd.makeProvider(cwClient, metriccache)
+	nrProvider, err := cmd.makeProvider(nrClient, metriccache)
 	if err != nil {
-		klog.Fatalf("unable to construct CloudWatch metrics provider: %v", err)
+		klog.Fatalf("unable to construct NewRelic metrics provider: %v", err)
 	}
 
-	cmd.WithExternalMetrics(cwProvider)
+	cmd.WithExternalMetrics(nrProvider)
 
-	klog.Info("CloudWatch metrics adapter started")
+	klog.Info("NewRelic metrics adapter started")
 
 	if err := cmd.Run(stopCh); err != nil {
-		klog.Fatalf("unable to run CloudWatch metrics adapter: %v", err)
+		klog.Fatalf("unable to run NewRelic metrics adapter: %v", err)
 	}
 }

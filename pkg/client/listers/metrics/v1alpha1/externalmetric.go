@@ -16,7 +16,7 @@
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/awslabs/k8s-cloudwatch-adapter/pkg/apis/metrics/v1alpha1"
+	v1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/tools/cache"

@@ -3,10 +3,9 @@ package controller
 import (
 	"fmt"
 
-	listers "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/listers/metrics/v1alpha1"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/metriccache"
+	listers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/listers/metrics/v1alpha1"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
 
-	"github.com/aws/aws-sdk-go/aws"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/tools/cache"
@@ -69,23 +68,7 @@ func (h *Handler) handleExternalMetric(ns, name string, queueItem namespacedQueu
 
 	// If changing logic in this block ensure changes are duplicated in
 	// `pkg/client.Query()`
-	query := aws.String(externalMetricInfo.Spec.Queries[0].MetricStat.Query)
-	// klog.V(2).Infof("test1 '%s'", &test)
-	// klog.V(2).Infof("test2 '%s'", test)
-	// klog.V(2).Infof("query '%s'", &externalMetricInfo.Spec.Queries[0].MetricStat.Query)
-	// nrMetricQueries := make([]*string, len(queries))
-	// for i, q := range queries {
-	// 	q := q
-	// 	// m := make(map[string]string)
-	// 	// m["Query"] = q.MetricStat.Query
-	// 	// m["AccountID"] = q.MetricStat.AccoundID
-
-	// 	klog.V(2).Infof("query '%s'", string(q.MetricStat.Query))
-	// 	klog.V(2).Infof(q.MetricStat.Query)
-	// 	mbq := q.MetricStat.Query
-	// 	nrMetricQueries[i] = &mbq
-	// }
-	// nrQuery := nrMetricQueries
+	query := externalMetricInfo.Spec.Queries[0].Query
 
 	klog.V(2).Infof("adding to cache item '%s' in namespace '%s'", name, ns)
 	h.metriccache.Update(queueItem.Key(), name, query)

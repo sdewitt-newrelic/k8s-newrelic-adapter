@@ -16,7 +16,7 @@
 package fake
 
 import (
-	v1alpha1 "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1"
+	v1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )

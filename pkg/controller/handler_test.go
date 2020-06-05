@@ -6,13 +6,13 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
-	api "github.com/awslabs/k8s-cloudwatch-adapter/pkg/apis/metrics/v1alpha1"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/metriccache"
+	api "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/clientset/versioned/fake"
-	informers "github.com/awslabs/k8s-cloudwatch-adapter/pkg/client/informers/externalversions"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
+	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
 )
 
 func getExternalKey(externalMetric *api.ExternalMetric) namespacedQueueItem {
@@ -39,7 +39,7 @@ func TestExternalMetricValueIsStored(t *testing.T) {
 		t.Errorf("error after processing = %v, want %v", err, nil)
 	}
 
-	metricRequest, exists := metriccache.GetCloudWatchRequest(externalMetric.Namespace, externalMetric.Name)
+	metricRequest, exists := metriccache.GetNewRelicQuery(externalMetric.Namespace, externalMetric.Name)
 
 	if exists == false {
 		t.Errorf("exist = %v, want %v", exists, true)
@@ -65,7 +65,7 @@ func TestShouldBeAbleToStoreCustomAndExternalWithSameNameAndNamespace(t *testing
 		t.Errorf("error after processing = %v, want %v", err, nil)
 	}
 
-	externalRequest, exists := metriccache.GetCloudWatchRequest(externalMetric.Namespace, externalMetric.Name)
+	externalRequest, exists := metriccache.GetNewRelicQuery(externalMetric.Namespace, externalMetric.Name)
 
 	if exists == false {
 		t.Errorf("exist = %v, want %v", exists, true)
@@ -94,7 +94,7 @@ func TestShouldFailOnInvalidCacheKey(t *testing.T) {
 		t.Errorf("error after processing nil, want non nil")
 	}
 
-	_, exists := metriccache.GetCloudWatchRequest(externalMetric.Namespace, externalMetric.Name)
+	_, exists := metriccache.GetNewRelicQuery(externalMetric.Namespace, externalMetric.Name)
 
 	if exists == true {
 		t.Errorf("exist = %v, want %v", exists, false)
@@ -120,7 +120,7 @@ func TestWhenExternalItemHasBeenDeleted(t *testing.T) {
 		t.Errorf("error == %v, want nil", err)
 	}
 
-	_, exists := metriccache.GetCloudWatchRequest(externalMetric.Namespace, externalMetric.Name)
+	_, exists := metriccache.GetNewRelicQuery(externalMetric.Namespace, externalMetric.Name)
 
 	if exists == true {
 		t.Errorf("exist = %v, want %v", exists, false)
@@ -146,7 +146,7 @@ func TestWhenItemKindIsUnknown(t *testing.T) {
 		t.Errorf("error == %v, want nil", err)
 	}
 
-	_, exists := metriccache.GetCloudWatchRequest("default", "unknown")
+	_, exists := metriccache.GetNewRelicQuery("default", "unknown")
 
 	if exists == true {
 		t.Errorf("exist = %v, want %v", exists, false)

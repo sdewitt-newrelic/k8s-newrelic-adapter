@@ -32,8 +32,8 @@ func (mc *MetricCache) Update(key string, name string, metricRequest interface{}
 	klog.V(2).Infof("Update")
 }
 
-// GetCloudWatchRequest retrieves a metric request from the cache
-func (mc *MetricCache) GetCloudWatchRequest(namepace, name string) (*string, bool) {
+// GetNewRelicQuery retrieves the query from the cache
+func (mc *MetricCache) GetNewRelicQuery(namepace, name string) (string, bool) {
 	mc.metricMutex.RLock()
 	defer mc.metricMutex.RUnlock()
 
@@ -41,10 +41,10 @@ func (mc *MetricCache) GetCloudWatchRequest(namepace, name string) (*string, boo
 	metricRequest, exists := mc.metricRequests[key]
 	if !exists {
 		klog.V(2).Infof("metric not found %s", key)
-		return nil, false
+		return "", false
 	}
 
-	return metricRequest.(*string), true
+	return metricRequest.(string), true
 }
 
 // Remove removes a metric request from the cache

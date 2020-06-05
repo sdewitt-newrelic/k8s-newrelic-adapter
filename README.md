@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/awslabs/k8s-cloudwatch-adapter.svg?branch=master)](https://travis-ci.org/awslabs/k8s-cloudwatch-adapter)
+[![Build Status](https://travis-ci.org/kuperiu/k8s-newrelic-adapter.svg?branch=master)](https://travis-ci.org/kuperiu/k8s-newrelic-adapter)
 [![GitHub
-release](https://img.shields.io/github/release/awslabs/k8s-cloudwatch-adapter/all.svg)](https://github.com/awslabs/k8s-cloudwatch-adapter/releases)
+release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter/all.svg)](https://github.com/kuperiu/k8s-newrelic-adapter/releases)
 [![docker image
 size](https://shields.beevelop.com/docker/image/image-size/chankh/k8s-cloudwatch-adapter/latest.svg)](https://hub.docker.com/r/chankh/k8s-cloudwatch-adapter)
 [![image
@@ -51,7 +51,7 @@ Requires a Kubernetes cluster with Metric Server deployed, Amazon EKS cluster is
 Now deploy the adapter to your Kubernetes cluster.
 
 ```bash
-$ kubectl apply -f https://raw.githubusercontent.com/awslabs/k8s-cloudwatch-adapter/master/deploy/adapter.yaml
+$ kubectl apply -f https://raw.githubusercontent.com/kuperiu/k8s-newrelic-adapter/master/deploy/adapter.yaml
 namespace/custom-metrics created
 clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:system:auth-delegator created
 rolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter-auth-reader created
@@ -94,4 +94,4 @@ Refer to this [guide](samples/sqs/README.md)
 This library is licensed under the Apache 2.0 License. 
 
 ## Issues
-Report any issues in the [Github Issues](https://github.com/awslabs/k8s-cloudwatch-adapter/issues)
+Report any issues in the [Github Issues](https://github.com/kuperiu/k8s-newrelic-adapter/issues)

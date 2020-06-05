@@ -10,7 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
-	util "github.com/awslabs/k8s-cloudwatch-adapter/pkg/aws"
+	util "github.com/kuperiu/k8s-newrelic-adapter/pkg/aws"
 )
 
 func main() {

@@ -7,9 +7,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/dynamic"
 
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/metriccache"
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/newrelic"
 	"github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/provider"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
+	"github.com/kuperiu/k8s-newrelic-adapter/pkg/newrelic"
 )
 
 var nsGroupResource = schema.GroupResource{Resource: "namespaces"}

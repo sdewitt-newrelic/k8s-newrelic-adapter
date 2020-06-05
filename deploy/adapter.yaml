@@ -55,7 +55,12 @@ spec:
         imagePullPolicy: Never
         env:
           - name: NEW_RELIC_API_KEY
-            value: NRAK-KY1NBFGBWWB405AS8C9UV0879PE
+            valueFrom:
+              secretKeyRef:
+                name: newrelic
+                key: api_key
+          - name: NEW_RELIC_ACCOUNT_ID
+            value: "1234"
         args:
         - /adapter
         - --cert-dir=/tmp

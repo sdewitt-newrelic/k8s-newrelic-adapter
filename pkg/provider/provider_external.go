@@ -22,15 +22,11 @@ func (p *newRelicProvider) GetExternalMetric(namespace string, metricSelector la
 		return nil, errors.NewBadRequest("label is set to not selectable. this should not happen")
 	}
 
-	cwRequest, found := p.metricCache.GetCloudWatchRequest(namespace, info.Metric)
+	nrQuery, found := p.metricCache.GetNewRelicQuery(namespace, info.Metric)
 	if !found {
-		klog.V(0).Info("$$$$$$$$$$")
+		return nil, errors.NewBadRequest("no metric query found")
 	}
-	klog.V(0).Info("@@@@@@@@@@")
-	test := aws.StringValue(cwRequest)
-	klog.V(0).Info("6. main  -- i  %T: &i=%p i=%v\n", test, &test, test)
-	klog.V(0).Info("@@@@@@@@@@")
-	metricValue, err := p.nrClient.Query()
+	metricValue, err := p.nrClient.Query(nrQuery)
 	if err != nil {
 		klog.Errorf("bad request: %v", err)
 		return nil, errors.NewBadRequest(err.Error())

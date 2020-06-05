@@ -4,8 +4,6 @@ import (
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-
-	"github.com/awslabs/k8s-cloudwatch-adapter/pkg/apis/metrics"
 )
 
 // SchemeGroupVersion is the group version used to register these objects

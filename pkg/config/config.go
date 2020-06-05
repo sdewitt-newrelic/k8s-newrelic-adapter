@@ -64,6 +64,9 @@ type MetricDataQuery struct {
 	// or MetricStat but not both.
 	MetricStat MetricStat `yaml:"metricStat"`
 
+	Query string `yaml:"query"`
+
+	AccountID string `yaml:"accountId"`
 	// Indicates whether to return the time stamps and raw data values of this metric.
 	// If you are performing this call just to do math expressions and do not also
 	// need the raw data returned, you can specify False. If you omit this, the
@@ -78,9 +81,6 @@ type MetricStat struct {
 	// Metric is a required field
 	Metric Metric `yaml:"metric"`
 
-	Query string `yaml:"query"`
-
-	AccountID string `yaml:"accountId"`
 	// The period to use when retrieving the metric.
 	//
 	// Period is a required field

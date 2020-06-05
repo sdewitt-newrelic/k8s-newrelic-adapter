@@ -8,16 +8,4 @@ spec:
     resource: "deployment"
   queries:
     - id: sqs_helloworld_length
-      query: "SELECT"
-      accountId: 2364728
-      metricStat:
-        metric:
-          namespace: "AWS/SQS"
-          metricName: "ApproximateNumberOfMessagesVisible"
-          dimensions:
-            - name: QueueName
-              value: "helloworld"
-        period: 300
-        stat: Average
-        unit: Count
-      returnData: true
+      query: "SELECT latest(lior.k8s.num) FROM Metric WHERE metricName='lior.k8s.num' SINCE 5 minutes ago"

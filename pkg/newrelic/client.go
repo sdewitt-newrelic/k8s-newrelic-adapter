@@ -1,8 +1,10 @@
 package newrelic
 
 import (
+	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	"github.com/newrelic/newrelic-client-go/newrelic"
 	"github.com/newrelic/newrelic-client-go/pkg/nerdgraph"
@@ -21,12 +23,17 @@ func NewRelicClient() Client {
 	}
 	nr, err := newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey))
 	if err != nil {
-		log.Fatalf("failed to create a New Relic client with error %v", err)
+		klog.V(2).Infof("failed to create a New Relic client with error %v", err)
 	}
 	return &newRelicClient{nr}
 }
 
-func (c *newRelicClient) Query() (float64, error) {
+func (c *newRelicClient) Query(nrQuery string) (float64, error) {
+	accountID, err := strconv.Atoi(os.Getenv("NEW_RELIC_ACCOUNT_ID"))
+	if err != nil {
+		klog.V(2).Infof("error getting new relic account id: ", err)
+		return 1, err
+	}
 	query := `
 	query($accountId: Int!, $nrqlQuery: Nrql!) {
 		actor {
@@ -39,8 +46,8 @@ func (c *newRelicClient) Query() (float64, error) {
   }`
 
 	variables := map[string]interface{}{
-		"accountId": 2364728,
-		"nrqlQuery": "SELECT latest(lior.k8s.num) FROM Metric where metricName='lior.k8s.num'",
+		"accountId": accountID,
+		"nrqlQuery": nrQuery,
 	}
 	resp, err := c.client.NerdGraph.Query(query, variables)
 	if err != nil {
@@ -53,16 +60,25 @@ func (c *newRelicClient) Query() (float64, error) {
 	nrql := account["nrql"].(map[string]interface{})
 	results := nrql["results"].([]interface{})
 
-	var durations float64
-
-	klog.V(2).Info("#############")
-	klog.V(2).Info(queryResp)
-	klog.V(2).Info("#############")
-
-	for _, r := range results {
-		data := r.(map[string]interface{})
-		durations = data["latest.lior.k8s.num"].(float64)
-		return durations, nil
+	metricValue, err := fetchMetricValue(results)
+	if err != nil {
+		return 1, err
 	}
-	return 0, nil
+	return metricValue, nil
+}
+
+func fetchMetricValue(results []interface{}) (float64, error) {
+	var durations float64
+	var keyName string
+	if len(results) == 1 {
+		for _, r := range results {
+			data := r.(map[string]interface{})
+			for k := range data {
+				keyName = k
+			}
+			durations = data[keyName].(float64)
+			return durations, nil
+		}
+	}
+	return 1, fmt.Errorf("the query returned more than one value")
 }
