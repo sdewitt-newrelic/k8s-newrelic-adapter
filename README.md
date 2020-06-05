@@ -81,7 +81,7 @@ $ kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .
 ```
 
 ## Deploying the sample application
-There is a sample SQS application provided in this repository for you to test how the adapter works.
+There is a sample application provided in this repository for you to test how the adapter works.
 Refer to this [guide](sample/README.md)
 
 ## License
