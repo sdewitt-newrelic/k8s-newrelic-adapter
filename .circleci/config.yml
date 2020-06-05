@@ -1,8 +1,13 @@
 version: 2
 jobs:
- build:
-   machine: true
-   steps:
-     - checkout
-     - run: make docker-build
-     - run: docker push kuperiu/k8s-newrelic-adapter
+  build:
+    docker:
+      - image: circleci/golang:1.13
+        auth:
+            username: $DOCKERHUB_USERNAME
+            password: $DOCKERHUB_PASSWORD
+    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+    steps:
+      - checkout
+      - run: make docker-build
+      - run: docker push {{ORG_NAME}}/{{REPO_NAME}}
