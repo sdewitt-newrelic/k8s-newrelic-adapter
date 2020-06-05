@@ -19,7 +19,7 @@ type newRelicClient struct {
 func NewRelicClient() Client {
 	apiKey := os.Getenv("NEW_RELIC_API_KEY")
 	if apiKey == "" {
-		log.Fatal("an API key is required, please set the NEW_RELIC_ADMIN_API_KEY environment variable")
+		log.Fatal("an API key is required, please set the NEW_RELIC_API_KEY environment variable")
 	}
 	nr, err := newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey))
 	if err != nil {
@@ -67,6 +67,7 @@ func (c *newRelicClient) Query(nrQuery string) (float64, error) {
 	return metricValue, nil
 }
 
+// fetchMetricValue get the metric's value
 func fetchMetricValue(results []interface{}) (float64, error) {
 	var durations float64
 	var keyName string
@@ -75,6 +76,9 @@ func fetchMetricValue(results []interface{}) (float64, error) {
 			data := r.(map[string]interface{})
 			for k := range data {
 				keyName = k
+			}
+			if data[keyName] == nil {
+				return 1, fmt.Errorf("the query doesn't have a value")
 			}
 			durations = data[keyName].(float64)
 			return durations, nil

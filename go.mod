@@ -16,5 +16,3 @@ require (
 	k8s.io/klog v1.0.0
 	k8s.io/metrics v0.0.0-20191004123503-ae3d6ea895be
 )
-
-replace github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.3
