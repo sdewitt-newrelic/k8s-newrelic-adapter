@@ -9,5 +9,6 @@ jobs:
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
+      - setup_remote_docker
       - run: make docker-build
       - run: docker push {{ORG_NAME}}/{{REPO_NAME}}
