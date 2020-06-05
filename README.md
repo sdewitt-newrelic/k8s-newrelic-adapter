@@ -2,48 +2,42 @@
 [![GitHub
 release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter/all.svg)](https://github.com/kuperiu/k8s-newrelic-adapter/releases)
 [![docker image
-size](https://shields.beevelop.com/docker/image/image-size/chankh/k8s-cloudwatch-adapter/latest.svg)](https://hub.docker.com/r/chankh/k8s-cloudwatch-adapter)
+size](https://shields.beevelop.com/docker/image/image-size/kuperiu/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 [![image
-layers](https://shields.beevelop.com/docker/image/layers/chankh/k8s-cloudwatch-adapter/latest.svg)](https://hub.docker.com/r/chankh/k8s-cloudwatch-adapter)
+layers](https://shields.beevelop.com/docker/image/layers/kuperiu/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 [![image
-pulls](https://shields.beevelop.com/docker/pulls/chankh/k8s-cloudwatch-adapter.svg)](https://hub.docker.com/r/chankh/k8s-cloudwatch-adapter)
+pulls](https://shields.beevelop.com/docker/pulls/kuperiu/k8s-newrelic-adapter.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 
 # Kubernetes Custom Metrics Adapter for Kubernetes
 
 
 An implementation of the Kubernetes [Custom Metrics API and External Metrics
 API](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis)
-for AWS CloudWatch metrics.
+for NewRelic metrics.
 
 This adapter allows you to scale your Kubernetes deployment using the [Horizontal Pod
 Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) with
-metrics from AWS CloudWatch.
+metrics from NewRelic.
 
 ## Prerequsites
-This adapter requires the following permissions to access metric data from Amazon CloudWatch.
-- cloudwatch:GetMetricData
-- cloudwatch:GetMetricStatistics
-- cloudwatch:ListMetrics
-
-You can create an IAM policy using this template, and attach it to the role if you are using
-[kube2iam](https://github.com/jtblin/kube2iam). 
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "cloudwatch:GetMetricData",
-                "cloudwatch:GetMetricStatistics",
-                "cloudwatch:ListMetrics"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
+This adapter requires the following to access metric data from Amazon CloudWatch.
+- Account ID - Change **NEW_RELIC_ACCOUNT_ID** in deploy/adapter.yaml to your NewRelic Account ID
+- Personal API Token - Create a secret called newrelic with The key api_key (The key should be encode to base64)
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: newrelic
+  namespace: custom-metrics
+type: Opaque
+data:
+  api_key: 1234=
 ```
+
+
+You can get The personal API toke from
+[Here](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#personal-api-key). 
+
 
 ## Deploy
 Requires a Kubernetes cluster with Metric Server deployed, Amazon EKS cluster is fine too.
@@ -87,7 +81,7 @@ $ kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .
 
 ## Deploying the sample application
 There is a sample SQS application provided in this repository for you to test how the adapter works.
-Refer to this [guide](samples/sqs/README.md)
+Refer to this [guide](sample/README.md)
 
 ## License
 
