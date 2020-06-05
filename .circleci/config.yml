@@ -1,0 +1,8 @@
+version: 2
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout
+     - run: make docker-build
+     - run: docker push kuperiu/k8s-newrelic-adapter

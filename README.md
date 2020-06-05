@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/kuperiu/k8s-newrelic-adapter.svg?branch=master)](https://travis-ci.org/kuperiu/k8s-newrelic-adapter)
-[![GitHub
-release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter/all.svg)](https://github.com/kuperiu/k8s-newrelic-adapter/releases)
+
+[![GitHub release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter.svg)](https://GitHub.com/kuperiu/k8s-newrelic-adapter/releases/)
+
+
 
 [![docker image
 size](https://shields.beevelop.com/docker/image/image-size/kuperiu/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
@@ -80,7 +82,7 @@ $ kubectl get --raw "/apis/external.metrics.k8s.io/v1beta1" | jq .
 }
 ```
 
-## Deploying the sample application
+## Deploying The sample application
 There is a sample application provided in this repository for you to test how the adapter works.
 Refer to this [guide](sample/README.md)
 
