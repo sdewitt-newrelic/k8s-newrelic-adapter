@@ -14,11 +14,11 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-        name: Setup environment
-        command: |
-          echo 'export GOPATH=$HOME/go' >> $BASH_ENV
-          echo 'export GOROOT=/usr/local/go' >> $BASH_ENV
-          echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> $BASH_ENV
+          name: Setup environment
+          command: |
+            echo 'export GOPATH=$HOME/go' >> $BASH_ENV
+            echo 'export GOROOT=/usr/local/go' >> $BASH_ENV
+            echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> $BASH_ENV
       - run: make test
       - run: make docker-build
       - run: makr push
