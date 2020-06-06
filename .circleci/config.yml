@@ -13,6 +13,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: hack/update-codegen.sh
+      - run: sudo hack/update-codegen.sh
       - run: make docker-build
       - run: make push
