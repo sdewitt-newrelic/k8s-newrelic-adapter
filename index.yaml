@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  k8s-newrelic-adapter:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2020-06-06T13:07:49.343294+02:00"
+    description: A Helm chart for Kubernetes
+    digest: 172d81f099060153073342fd2f4f52cbdd1e75e5839cbe1749c612461d76ca1d
+    name: k8s-newrelic-adapter
+    type: application
+    urls:
+    - https://github.com/kuperiu/k8s-newrelic-adapter/k8s-newrelic-adapter-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-06-06T13:07:49.342435+02:00"

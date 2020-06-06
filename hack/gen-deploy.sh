@@ -21,7 +21,7 @@ gen() {
     helm template \
         "${REPO_ROOT}/charts/k8s-newrelic-adapter/" \
         --namespace "custom-metrics" \
-        --name "k8s-newrelic-adapter" \
+        --name-template "k8s-newrelic-adapter" \
         --set "fullnameOverride=k8s-newrelic-adapter" \
 		--set "createNamespaceResource=true" > "${TMP_OUTPUT}" \
         ${VALUES_PATH}
