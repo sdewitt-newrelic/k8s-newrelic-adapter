@@ -26,7 +26,7 @@ type MetricsV1alpha1Interface interface {
 	ExternalMetricsGetter
 }
 
-// MetricsV1alpha1Client is used to interact with features provided by the metrics.aws group.
+// MetricsV1alpha1Client is used to interact with features provided by the metrics.newrelic group.
 type MetricsV1alpha1Client struct {
 	restClient rest.Interface
 }

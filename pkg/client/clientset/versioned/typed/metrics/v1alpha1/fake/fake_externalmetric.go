@@ -30,9 +30,9 @@ type FakeExternalMetrics struct {
 	ns   string
 }
 
-var externalmetricsResource = schema.GroupVersionResource{Group: "metrics.aws", Version: "v1alpha1", Resource: "externalmetrics"}
+var externalmetricsResource = schema.GroupVersionResource{Group: "metrics.newrelic", Version: "v1alpha1", Resource: "externalmetrics"}
 
-var externalmetricsKind = schema.GroupVersionKind{Group: "metrics.aws", Version: "v1alpha1", Kind: "ExternalMetric"}
+var externalmetricsKind = schema.GroupVersionKind{Group: "metrics.newrelic", Version: "v1alpha1", Kind: "ExternalMetric"}
 
 // Get takes name of the externalMetric, and returns the corresponding externalMetric object, and an error if there is any.
 func (c *FakeExternalMetrics) Get(name string, options v1.GetOptions) (result *v1alpha1.ExternalMetric, err error) {

@@ -42,9 +42,6 @@ type MetricDataQuery struct {
 	// see Metric Math Syntax and Functions (http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
 	// in the Amazon CloudWatch User Guide.
 	//
-	// Within one MetricDataQuery structure, you must specify either Expression
-	// or MetricStat but not both.
-	Expression string `json:"expression"`
 
 	// A short name used to tie this structure to the results in the response. This
 	// name must be unique within a single call to GetMetricData. If you are performing
@@ -65,66 +62,9 @@ type MetricDataQuery struct {
 	// The metric to be returned, along with statistics, period, and units. Use
 	// this parameter only if this structure is performing a data retrieval and
 	// not performing a math expression on the returned data.
-	//
-	// Within one MetricDataQuery structure, you must specify either Expression
-	// or MetricStat but not both.
-	MetricStat MetricStat `json:"metricStat"`
 
+	// the newrelic query (nrql)
 	Query string `json:"query"`
-
-	AccoundID string `json:"accountId"`
-	// Indicates whether to return the time stamps and raw data values of this metric.
-	// If you are performing this call just to do math expressions and do not also
-	// need the raw data returned, you can specify False. If you omit this, the
-	// default of True is used.
-	ReturnData bool `json:"returnData"`
-}
-
-// MetricStat defines the metric to be returned, along with the statistics, period, and units.
-type MetricStat struct {
-	// The metric to return, including the metric name, namespace, and dimensions.
-	//
-	// Metric is a required field
-	Metric Metric `json:"metric"`
-
-	// The period to use when retrieving the metric.
-	//
-	// Period is a required field
-	Period int64 `json:"period"`
-
-	// The statistic to return. It can include any CloudWatch statistic or extended
-	// statistic.
-	//
-	// Stat is a required field
-	Stat string `json:"stat"`
-
-	// The unit to use for the returned data points.
-	Unit string `json:"unit"`
-}
-
-// Metric represents a specific metric.
-type Metric struct {
-	// The dimensions for the metric.
-	Dimensions []Dimension `json:"dimensions"`
-
-	// The name of the metric.
-	MetricName string `json:"metricName"`
-
-	// The namespace of the metric.
-	Namespace string `json:"namespace"`
-}
-
-// Dimension expands the identity of a metric.
-type Dimension struct {
-	// The name of the dimension.
-	//
-	// Name is a required field
-	Name string `json:"name"`
-
-	// The value representing the dimension measurement.
-	//
-	// Value is a required field
-	Value string `json:"value"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -6,9 +6,12 @@ jobs:
         auth:
             username: $DOCKERHUB_USERNAME
             password: $DOCKERHUB_PASSWORD
+    environment:
+      GOPATH: "/go"
     working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
     steps:
       - checkout
       - setup_remote_docker
+      - run: make test
       - run: make docker-build
-      - run: docker push {{ORG_NAME}}/{{REPO_NAME}}
+      - run: makr push

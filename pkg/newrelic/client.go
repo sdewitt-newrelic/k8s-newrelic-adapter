@@ -31,7 +31,7 @@ func NewRelicClient() Client {
 func (c *newRelicClient) Query(nrQuery string) (float64, error) {
 	accountID, err := strconv.Atoi(os.Getenv("NEW_RELIC_ACCOUNT_ID"))
 	if err != nil {
-		klog.V(2).Infof("error getting new relic account id: ", err)
+		klog.V(2).Infof("error getting new relic account id: %s", err)
 		return 1, err
 	}
 	query := `

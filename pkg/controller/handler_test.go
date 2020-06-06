@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	api "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
 	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
 	"github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
 	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
 )
+
+var query = "SELECT latest(test.k8s.num) FROM Metric WHERE metricName='test.k8s.num'"
 
 func getExternalKey(externalMetric *api.ExternalMetric) namespacedQueueItem {
 	return namespacedQueueItem{
@@ -43,7 +45,9 @@ func TestExternalMetricValueIsStored(t *testing.T) {
 		t.Errorf("exist = %v, want %v", exists, true)
 	}
 
-	validateExternalMetricResult(metricRequest, externalMetric, t)
+	if metricRequest != query {
+		t.Errorf("externalRequest = %s, want %v", metricRequest, query)
+	}
 }
 
 func TestShouldBeAbleToStoreCustomAndExternalWithSameNameAndNamespace(t *testing.T) {
@@ -69,7 +73,9 @@ func TestShouldBeAbleToStoreCustomAndExternalWithSameNameAndNamespace(t *testing
 		t.Errorf("exist = %v, want %v", exists, true)
 	}
 
-	validateExternalMetricResult(externalRequest, externalMetric, t)
+	if externalRequest != query {
+		t.Errorf("externalRequest = %s, want %v", externalRequest, query)
+	}
 }
 
 func TestShouldFailOnInvalidCacheKey(t *testing.T) {
@@ -83,7 +89,7 @@ func TestShouldFailOnInvalidCacheKey(t *testing.T) {
 	handler, metriccache := newHandler(storeObjects, externalMetricsListerCache)
 
 	queueItem := namespacedQueueItem{
-		namespaceKey: "invalidkey/with/extrainfo",
+		namespaceKey: "default/with/extrainfo",
 		kind:         "somethingwrong",
 	}
 	err := handler.Process(queueItem)
@@ -110,7 +116,7 @@ func TestWhenExternalItemHasBeenDeleted(t *testing.T) {
 
 	// add the item to the cache then test if it gets deleted
 	queueItem := getExternalKey(externalMetric)
-	metriccache.Update(queueItem.Key(), "test", cloudwatch.GetMetricDataInput{})
+	metriccache.Update(queueItem.Key(), "test", query)
 
 	err := handler.Process(queueItem)
 
@@ -144,7 +150,7 @@ func TestWhenItemKindIsUnknown(t *testing.T) {
 		t.Errorf("error == %v, want nil", err)
 	}
 
-	_, exists := metriccache.GetNewRelicQuery("default", "unknown")
+	_, exists := metriccache.GetNewRelicQuery("default", "test")
 
 	if exists == true {
 		t.Errorf("exist = %v, want %v", exists, false)
@@ -165,4 +171,23 @@ func newHandler(storeObjects []runtime.Object, externalMetricsListerCache []*api
 	handler := NewHandler(externalMetricLister, metriccache)
 
 	return handler, metriccache
+}
+
+func newFullExternalMetric(name string) *api.ExternalMetric {
+	return &api.ExternalMetric{
+		TypeMeta: metav1.TypeMeta{APIVersion: api.SchemeGroupVersion.String(), Kind: "ExternalMetric"},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      name,
+			Namespace: metav1.NamespaceDefault,
+		},
+		Spec: api.MetricSeriesSpec{
+			Name: "Name",
+			Queries: []api.MetricDataQuery{
+				{
+					ID:    "query1",
+					Query: query,
+				},
+			},
+		},
+	}
 }

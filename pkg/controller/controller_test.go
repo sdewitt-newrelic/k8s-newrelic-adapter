@@ -226,21 +226,8 @@ func newExternalMetric() *api.ExternalMetric {
 		Spec: api.MetricSeriesSpec{
 			Name: "test",
 			Queries: []api.MetricDataQuery{{
-				ID: "queryID",
-				MetricStat: api.MetricStat{
-					Metric: api.Metric{
-						Dimensions: []api.Dimension{{
-							Name:  "DimensionName1",
-							Value: "DimensionValue1",
-						}},
-						MetricName: "metricName",
-						Namespace:  "namespace",
-					},
-					Period: 60,
-					Stat:   "Average",
-					Unit:   "Count",
-				},
-				ReturnData: true,
+				ID:    "queryID",
+				Query: query,
 			}},
 		},
 	}

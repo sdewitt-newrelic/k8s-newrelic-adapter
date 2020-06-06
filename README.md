@@ -60,7 +60,7 @@ apiservice.apiregistration.k8s.io/v1beta1.external.metrics.k8s.io created
 clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:external-metrics-reader created
 clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter-resource-reader created
 clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:external-metrics-reader created
-customresourcedefinition.apiextensions.k8s.io/externalmetrics.metrics.aws created
+customresourcedefinition.apiextensions.k8s.io/externalmetrics.metrics.newrelic created
 clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:crd-metrics-reader created
 clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:crd-metrics-reader created
 ```
