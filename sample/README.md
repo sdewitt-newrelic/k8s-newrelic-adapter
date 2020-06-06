@@ -26,8 +26,8 @@ kubectl apply -f sample/
 kubectl get po
 ```
 ```
-NAME                           READY   STATUS    RESTARTS   AGE
-testing-fc64f8954-dzc4t   1/1     Running   0          2d4h
+NAME                                 READY   STATUS    RESTARTS   AGE
+sample-application-757df6d98-g6rkq   1/1     Running   0          5s
 ```
 2. Increate your metric to 5
 ```bash 
@@ -38,10 +38,10 @@ echo "test.k8s.num:5|g" | nc  -w 1 -u localhost 8125
 kubectl get po
 ```
 ```bash
-NAME                       READY   STATUS    RESTARTS   AGE
-testing-576fdd686b-gk2kf   1/1     Running   0          46s
-testing-576fdd686b-ks9hq   1/1     Running   0          46s
-testing-576fdd686b-sg574   1/1     Running   0          46s
-testing-576fdd686b-tsh5q   1/1     Running   0          46s
-testing-576fdd686b-vvsxm   1/1     Running   0          46s
+NAME                                 READY   STATUS    RESTARTS   AGE
+sample-application-757df6d98-4722t   1/1     Running   0          20s
+sample-application-757df6d98-5j779   1/1     Running   0          20s
+sample-application-757df6d98-6jcrr   1/1     Running   0          3s
+sample-application-757df6d98-g6rkq   1/1     Running   0          2m17s
+sample-application-757df6d98-v8rqk   1/1     Running   0          20s
 ```

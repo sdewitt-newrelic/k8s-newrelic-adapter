@@ -1,17 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testing
+  name: sample-application
 spec:
   selector:
     matchLabels:
-      app: testing
+      app: sample-application
   template:
     metadata:
       labels:
-        app: testing
+        app: sample-application
     spec:
       containers:
-      - name: testing
-        image: testing
-        imagePullPolicy: Never
+      - name: sample-application
+        image: kuperiu/sample_application
