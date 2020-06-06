@@ -10,8 +10,8 @@ jobs:
       # GOROOT is not set by default
       GOROOT: ""
       GOPATH: "/go"
-      BUILD_PATH: "${GOPATH}/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}"
-    working_directory: /go/src/github.com/{{ORG_NAME}}/{{REPO_NAME}}
+      BUILD_PATH: "${GOPATH}/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}""
+    working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     steps:
       - checkout
       - setup_remote_docker
