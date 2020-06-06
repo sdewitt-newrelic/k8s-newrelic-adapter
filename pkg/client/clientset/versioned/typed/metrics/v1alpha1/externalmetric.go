@@ -16,7 +16,6 @@
 package v1alpha1
 
 import (
-	"context"
 	"time"
 
 	v1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
@@ -66,7 +65,7 @@ func (c *externalMetrics) Get(name string, options v1.GetOptions) (result *v1alp
 		Resource("externalmetrics").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(context.Background()).
+		Do().
 		Into(result)
 	return
 }
@@ -83,7 +82,7 @@ func (c *externalMetrics) List(opts v1.ListOptions) (result *v1alpha1.ExternalMe
 		Resource("externalmetrics").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(context.Background()).
+		Do().
 		Into(result)
 	return
 }
@@ -100,7 +99,7 @@ func (c *externalMetrics) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("externalmetrics").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(context.Background())
+		Watch()
 }
 
 // Create takes the representation of a externalMetric and creates it.  Returns the server's representation of the externalMetric, and an error, if there is any.
@@ -110,7 +109,7 @@ func (c *externalMetrics) Create(externalMetric *v1alpha1.ExternalMetric) (resul
 		Namespace(c.ns).
 		Resource("externalmetrics").
 		Body(externalMetric).
-		Do(context.Background()).
+		Do().
 		Into(result)
 	return
 }
@@ -123,7 +122,7 @@ func (c *externalMetrics) Update(externalMetric *v1alpha1.ExternalMetric) (resul
 		Resource("externalmetrics").
 		Name(externalMetric.Name).
 		Body(externalMetric).
-		Do(context.Background()).
+		Do().
 		Into(result)
 	return
 }
@@ -135,7 +134,7 @@ func (c *externalMetrics) Delete(name string, options *v1.DeleteOptions) error {
 		Resource("externalmetrics").
 		Name(name).
 		Body(options).
-		Do(context.Background()).
+		Do().
 		Error()
 }
 
@@ -151,6 +150,6 @@ func (c *externalMetrics) DeleteCollection(options *v1.DeleteOptions, listOption
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
-		Do(context.Background()).
+		Do().
 		Error()
 }

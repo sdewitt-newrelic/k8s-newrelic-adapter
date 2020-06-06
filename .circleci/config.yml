@@ -13,5 +13,5 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run: go build -o /build/adapter cmd/adapter/adapter.go
-      - run: docker build deploy/Dockerfile -t kuperiu/k8s-newrelic-adapter
+      - run: make docker-build
+      - run: make push
