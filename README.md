@@ -1,9 +1,3 @@
-[![Build Status](https://travis-ci.org/kuperiu/k8s-newrelic-adapter.svg?branch=master)](https://travis-ci.org/kuperiu/k8s-newrelic-adapter)
-
-[![GitHub release](https://img.shields.io/github/release/kuperiu/k8s-newrelic-adapter.svg)](https://GitHub.com/kuperiu/k8s-newrelic-adapter/releases/)
-
-
-
 [![docker image
 size](https://shields.beevelop.com/docker/image/image-size/kuperiu/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 [![image
@@ -23,7 +17,7 @@ Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-auto
 metrics from NewRelic.
 
 ## Prerequsites
-This adapter requires the following to access metric data from Amazon CloudWatch.
+This adapter requires the following to access metric data from Amazon NewRelic.
 - Account ID - Change **NEW_RELIC_ACCOUNT_ID** in deploy/adapter.yaml to your NewRelic Account ID
 - Personal API Token - Create a secret called newrelic with The key api_key (The key should be encode to base64)
 ```yaml
