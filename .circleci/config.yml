@@ -10,7 +10,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - pwd
+      - run: pwd
       - run: make test
       - run: make docker-build
       - run: makr push
