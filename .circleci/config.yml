@@ -11,7 +11,7 @@ jobs:
       GOROOT: ""
       GOPATH: "${HOME}/.go_project"
       PATH: "${GOPATH}/bin:${PATH}"
-      BUILD_PATH: "${GOPATH}/src/github.com/kuperiu/k8s-newrelic-adapter
+      BUILD_PATH: "${GOPATH}/src/github.com/kuperiu/k8s-newrelic-adapter"
           
     working_directory: /go/src/github.com/kuperiu/k8s-newrelic-adapter
     steps:
