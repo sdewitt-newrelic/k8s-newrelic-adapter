@@ -6,6 +6,13 @@ jobs:
         auth:
             username: $DOCKERHUB_USERNAME
             password: $DOCKERHUB_PASSWORD
+    environment:
+      # GOROOT is not set by default
+      GOROOT: ""
+      GOPATH: "${HOME}/.go_project"
+      PATH: "${GOPATH}/bin:${PATH}"
+      BUILD_PATH: "${GOPATH}/src/github.com/kuperiu/k8s-newrelic-adapter
+          
     working_directory: /go/src/github.com/kuperiu/k8s-newrelic-adapter
     steps:
       - checkout
