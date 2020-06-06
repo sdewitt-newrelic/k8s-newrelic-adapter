@@ -6,7 +6,7 @@ jobs:
         auth:
             username: $DOCKERHUB_USERNAME
             password: $DOCKERHUB_PASSWORD
-    working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    working_directory: /go/src/github.com/kuperiu/k8s-newrelic-adapter
     steps:
       - checkout
       - setup_remote_docker
