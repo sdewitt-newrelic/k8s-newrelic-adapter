@@ -52,7 +52,6 @@ spec:
       containers:
       - name: k8s-newrelic-adapter
         image: kuperiu/k8s-newrelic-adapter
-        imagePullPolicy: Never
         env:
           - name: NEW_RELIC_API_KEY
             valueFrom:
