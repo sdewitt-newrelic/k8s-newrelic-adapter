@@ -8,6 +8,7 @@ jobs:
             password: $DOCKERHUB_PASSWORD
         environment:
           GO111MODULE: "on"
+          GOPATH: /go
     working_directory: /go/src/github.com/kuperiu/k8s-newrelic-adapter
     steps:
       - checkout
