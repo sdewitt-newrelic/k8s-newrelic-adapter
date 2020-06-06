@@ -50,19 +50,19 @@ Now deploy the adapter to your Kubernetes cluster.
 ```bash
 $ kubectl apply -f https://raw.githubusercontent.com/kuperiu/k8s-newrelic-adapter/master/deploy/adapter.yaml
 namespace/custom-metrics created
-clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:system:auth-delegator created
-rolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter-auth-reader created
-deployment.apps/k8s-cloudwatch-adapter created
-clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter-resource-reader created
-serviceaccount/k8s-cloudwatch-adapter created
-service/k8s-cloudwatch-adapter created
+clusterrolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter:system:auth-delegator created
+rolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter-auth-reader created
+deployment.apps/k8s-newrelic-adapter created
+clusterrolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter-resource-reader created
+serviceaccount/k8s-newrelic-adapter created
+service/k8s-newrelic-adapter created
 apiservice.apiregistration.k8s.io/v1beta1.external.metrics.k8s.io created
-clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:external-metrics-reader created
-clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter-resource-reader created
-clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:external-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/k8s-newrelic-adapter:external-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/k8s-newrelic-adapter-resource-reader created
+clusterrolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter:external-metrics-reader created
 customresourcedefinition.apiextensions.k8s.io/externalmetrics.metrics.newrelic created
-clusterrole.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:crd-metrics-reader created
-clusterrolebinding.rbac.authorization.k8s.io/k8s-cloudwatch-adapter:crd-metrics-reader created
+clusterrole.rbac.authorization.k8s.io/k8s-newrelic-adapter:crd-metrics-reader created
+clusterrolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter:crd-metrics-reader created
 ```
 
 This creates a new namespace `custom-metrics` and deploys the necessary ClusterRole, Service Account,

@@ -19,10 +19,10 @@ gen() {
         VALUES_PATH="--values=${SCRIPT_ROOT}/deploy/values/${VALUES}.yaml"
     fi
     helm template \
-        "${REPO_ROOT}/charts/k8s-cloudwatch-adapter/" \
+        "${REPO_ROOT}/charts/k8s-newrelic-adapter/" \
         --namespace "custom-metrics" \
-        --name "k8s-cloudwatch-adapter" \
-        --set "fullnameOverride=k8s-cloudwatch-adapter" \
+        --name "k8s-newrelic-adapter" \
+        --set "fullnameOverride=k8s-newrelic-adapter" \
 		--set "createNamespaceResource=true" > "${TMP_OUTPUT}" \
         ${VALUES_PATH}
     

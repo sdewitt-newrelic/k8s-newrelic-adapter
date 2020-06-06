@@ -14,7 +14,7 @@ import (
 
 var nsGroupResource = schema.GroupResource{Resource: "namespaces"}
 
-// cloudwatchProvider is a implementation of provider.MetricsProvider for CloudWatch
+// newRelicProvider is a implementation of provider.MetricsProvider for CloudWatch
 type newRelicProvider struct {
 	client   dynamic.Interface
 	mapper   apimeta.RESTMapper
@@ -24,7 +24,7 @@ type newRelicProvider struct {
 	metricCache *metriccache.MetricCache
 }
 
-// NewCloudWatchProvider returns an instance of testingProvider, along with its restful.WebService
+// NewRelicProvider returns an instance of testingProvider, along with its restful.WebService
 // that opens endpoints to post new fake metrics
 func NewRelicProvider(client dynamic.Interface, mapper apimeta.RESTMapper, nrClient newrelic.Client, metricCache *metriccache.MetricCache) provider.ExternalMetricsProvider {
 	provider := &newRelicProvider{
