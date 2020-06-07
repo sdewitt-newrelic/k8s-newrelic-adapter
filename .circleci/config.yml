@@ -13,5 +13,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - run: make vendor
       - run: make docker-build
       - run: make push
