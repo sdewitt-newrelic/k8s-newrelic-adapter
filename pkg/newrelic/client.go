@@ -2,7 +2,6 @@ package newrelic
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
@@ -19,12 +18,13 @@ type newRelicClient struct {
 func NewRelicClient() Client {
 	apiKey := os.Getenv("NEW_RELIC_API_KEY")
 	if apiKey == "" {
-		log.Fatal("an API key is required, please set the NEW_RELIC_API_KEY environment variable")
+		klog.V(2).Infof("an API key is required, please set the NEW_RELIC_API_KEY environment variable")
 	}
 	nr, err := newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey))
 	if err != nil {
 		klog.V(2).Infof("failed to create a New Relic client with error %v", err)
 	}
+
 	return &newRelicClient{nr}
 }
 
@@ -51,7 +51,7 @@ func (c *newRelicClient) Query(nrQuery string) (float64, error) {
 	}
 	resp, err := c.client.NerdGraph.Query(query, variables)
 	if err != nil {
-		log.Fatal("error running NerdGraph query: ", err)
+		klog.V(2).Infof("error running NerdGraph query: ", err)
 	}
 
 	queryResp := resp.(nerdgraph.QueryResponse)

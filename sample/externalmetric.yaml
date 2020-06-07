@@ -8,4 +8,4 @@ spec:
     resource: "deployment"
   queries:
     - id: sample-application
-      query: "SELECT latest(lior.k8s.num) FROM Metric WHERE metricName='lior.k8s.num' SINCE 5 minutes ago"
+      query: "SELECT latest(test.k8s.num) FROM Metric WHERE metricName='test.k8s.num'"
