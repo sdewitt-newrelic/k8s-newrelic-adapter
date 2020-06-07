@@ -16,7 +16,7 @@ src_deps=$(shell find pkg cmd -type f -name "*.go")
 $(OUT_DIR)/adapter: $(src_deps)
 	CGO_ENABLED=0 GOARCH=$* go build $(GOFLAGS) -o $(OUT_DIR)/$*/adapter cmd/adapter/adapter.go
 
-docker-build: verify-apis test
+docker-build: test
 	cp deploy/Dockerfile $(TEMP_DIR)/Dockerfile
 
 	docker run -v $(TEMP_DIR):/build -v $(shell pwd):/go/src/github.com/kuperiu/k8s-newrelic-adapter -e GOARCH=amd64 -e GOFLAGS="$(GOFLAGS)" -w /go/src/github.com/kuperiu/k8s-newrelic-adapter $(GOIMAGE) /bin/bash -c "\
@@ -44,7 +44,7 @@ else
 endif
 
 test:
-	CGO_ENABLED=0 GO111MODULE=on go test ./pkg/...
+	CGO_ENABLED=0 GO111MODULE=on go test ./pkg/controller/...
 
 clean:
 	rm -rf ${OUT_DIR} vendor
