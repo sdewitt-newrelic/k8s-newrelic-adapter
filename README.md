@@ -32,7 +32,7 @@ data:
 ```
 
 
-You can get The personal API toke from
+You can get The personal API token from
 [Here](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#personal-api-key). 
 
 
