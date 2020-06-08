@@ -5,7 +5,7 @@ layers](https://shields.beevelop.com/docker/image/layers/kuperiu/k8s-newrelic-ad
 [![image
 pulls](https://shields.beevelop.com/docker/pulls/kuperiu/k8s-newrelic-adapter.svg)](https://hub.docker.com/r/kuperiu/k8s-newrelic-adapter)
 
-# Kubernetes Custom Metrics Adapter for Kubernetes
+# Kubernetes Custom Metrics Adapter for NewRelic
 
 
 An implementation of the Kubernetes [Custom Metrics API and External Metrics
