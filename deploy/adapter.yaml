@@ -57,7 +57,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: newrelic
-                key: api_key
+                key: personal_api_key
           - name: NEW_RELIC_ACCOUNT_ID
             valueFrom:
               secretKeyRef:
