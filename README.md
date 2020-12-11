@@ -35,7 +35,7 @@ Now deploy the adapter to your Kubernetes cluster.
 
 ```bash
 $ kubectl apply -f https://raw.githubusercontent.com/kidk/k8s-newrelic-adapter/master/deploy/adapter.yaml
-namespace/custom-metrics created
+namespace/newrelic-custom-metrics created
 clusterrolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter:system:auth-delegator created
 rolebinding.rbac.authorization.k8s.io/k8s-newrelic-adapter-auth-reader created
 deployment.apps/k8s-newrelic-adapter created
