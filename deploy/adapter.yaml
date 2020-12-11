@@ -51,7 +51,7 @@ spec:
       serviceAccountName: k8s-newrelic-adapter
       containers:
       - name: k8s-newrelic-adapter
-        image: kidk/k8s-newrelic-adapter:0.0.1
+        image: ghcr.io/kidk/k8s-newrelic-adapter:latest
         env:
           - name: NEW_RELIC_API_KEY
             valueFrom:
