@@ -13,4 +13,4 @@ spec:
     spec:
       containers:
       - name: sample-application
-        image: kuperiu/sample_application
+        image: kidk/sample_application

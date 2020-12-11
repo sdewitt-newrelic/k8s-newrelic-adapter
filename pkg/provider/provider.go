@@ -8,8 +8,8 @@ import (
 	"k8s.io/client-go/dynamic"
 
 	"github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/provider"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/newrelic"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/metriccache"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/newrelic"
 )
 
 var nsGroupResource = schema.GroupResource{Resource: "namespaces"}

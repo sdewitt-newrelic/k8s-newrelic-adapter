@@ -4,9 +4,9 @@ import (
 	"errors"
 	"testing"
 
-	api "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
-	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
+	api "github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
+	informers "github.com/kidk/k8s-newrelic-adapter/pkg/client/informers/externalversions"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"k8s.io/apimachinery/pkg/runtime"

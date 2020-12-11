@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"testing"
 
-	api "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
+	api "github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/metriccache"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
-	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/fake"
+	informers "github.com/kidk/k8s-newrelic-adapter/pkg/client/informers/externalversions"
 )
 
 var query = "SELECT latest(test.k8s.num) FROM Metric WHERE metricName='test.k8s.num'"

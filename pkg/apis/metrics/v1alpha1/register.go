@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	externalmetric "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics"
+	externalmetric "github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics"
 )
 
 // SchemeGroupVersion is the group version used to register these objects

@@ -18,8 +18,8 @@ package v1alpha1
 import (
 	"time"
 
-	v1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
-	scheme "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	scheme "github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"

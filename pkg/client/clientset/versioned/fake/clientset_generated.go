@@ -16,9 +16,9 @@
 package fake
 
 import (
-	clientset "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned"
-	metricsv1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1"
-	fakemetricsv1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1/fake"
+	clientset "github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned"
+	metricsv1alpha1 "github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1"
+	fakemetricsv1alpha1 "github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/typed/metrics/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

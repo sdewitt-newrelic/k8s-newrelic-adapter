@@ -3,8 +3,8 @@ package controller
 import (
 	"fmt"
 
-	listers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/listers/metrics/v1alpha1"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
+	listers "github.com/kidk/k8s-newrelic-adapter/pkg/client/listers/metrics/v1alpha1"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/metriccache"
 
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/util/runtime"

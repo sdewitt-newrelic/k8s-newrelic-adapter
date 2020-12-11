@@ -1,4 +1,4 @@
-REGISTRY?=kuperiu
+REGISTRY?=ghcr.io/kidk
 IMAGE?=k8s-newrelic-adapter
 TEMP_DIR:=$(shell mktemp -d /tmp/$(IMAGE).XXXXXX)
 OUT_DIR?=./_output
@@ -19,7 +19,7 @@ $(OUT_DIR)/adapter: $(src_deps)
 docker-build: test
 	cp deploy/Dockerfile $(TEMP_DIR)/Dockerfile
 
-	docker run -v $(TEMP_DIR):/build -v $(shell pwd):/go/src/github.com/kuperiu/k8s-newrelic-adapter -e GOARCH=amd64 -e GOFLAGS="$(GOFLAGS)" -w /go/src/github.com/kuperiu/k8s-newrelic-adapter $(GOIMAGE) /bin/bash -c "\
+	docker run -v $(TEMP_DIR):/build -v $(shell pwd):/go/src/github.com/kidk/k8s-newrelic-adapter -e GOARCH=amd64 -e GOFLAGS="$(GOFLAGS)" -w /go/src/github.com/kidk/k8s-newrelic-adapter $(GOIMAGE) /bin/bash -c "\
 		CGO_ENABLED=0 GO111MODULE=on go build -o /build/adapter cmd/adapter/adapter.go"
 
 	docker build -t $(REGISTRY)/$(IMAGE):$(VERSION) $(TEMP_DIR)

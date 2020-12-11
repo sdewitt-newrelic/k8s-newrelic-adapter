@@ -16,8 +16,8 @@
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned/scheme"
+	v1alpha1 "github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

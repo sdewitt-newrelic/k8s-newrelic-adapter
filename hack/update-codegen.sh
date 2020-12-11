@@ -13,8 +13,8 @@ CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${SCRIPT_ROOT}; ls -d -1 ./vendor/k8s.io/code-ge
 #                  instead of the $GOPATH directly. For normal projects this can be dropped.
 chmod +x ${CODEGEN_PKG}/generate-groups.sh
 ${CODEGEN_PKG}/generate-groups.sh "all" \
-    github.com/kuperiu/k8s-newrelic-adapter/pkg/client \
-    github.com/kuperiu/k8s-newrelic-adapter/pkg/apis \
+    github.com/kidk/k8s-newrelic-adapter/pkg/client \
+    github.com/kidk/k8s-newrelic-adapter/pkg/apis \
     metrics:v1alpha1 \
     --go-header-file "$(dirname ${BASH_SOURCE})/custom-boilerplate.go.txt" \
     --output-base "$(dirname ${BASH_SOURCE})/../../../.."

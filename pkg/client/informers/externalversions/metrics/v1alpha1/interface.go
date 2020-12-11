@@ -16,7 +16,7 @@
 package v1alpha1
 
 import (
-	internalinterfaces "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions/internalinterfaces"
+	internalinterfaces "github.com/kidk/k8s-newrelic-adapter/pkg/client/informers/externalversions/internalinterfaces"
 )
 
 // Interface provides access to all the informers in this group version.

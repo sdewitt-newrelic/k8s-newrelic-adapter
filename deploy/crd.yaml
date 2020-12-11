@@ -39,5 +39,5 @@ roleRef:
   name: k8s-newrelic-adapter:crd-metrics-reader
 subjects:
   - name: k8s-newrelic-adapter
-    namespace: "custom-metrics"
+    namespace: newrelic-custom-metrics
     kind: ServiceAccount

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
-	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions/metrics/v1alpha1"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/apis/metrics/v1alpha1"
+	informers "github.com/kidk/k8s-newrelic-adapter/pkg/client/informers/externalversions/metrics/v1alpha1"
 	"k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
 	"k8s.io/client-go/tools/cache"

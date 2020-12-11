@@ -20,16 +20,16 @@ gen() {
     fi
     helm template \
         "${REPO_ROOT}/charts/k8s-newrelic-adapter/" \
-        --namespace "custom-metrics" \
+        --namespace "newrelic-custom-metrics" \
         --name-template "k8s-newrelic-adapter" \
         --set "fullnameOverride=k8s-newrelic-adapter" \
 		--set "createNamespaceResource=true" > "${TMP_OUTPUT}" \
         ${VALUES_PATH}
-    
+
 	mv "${TMP_OUTPUT}" "${OUTPUT}"
 }
 
 # Additional deployment files can be generated here with the following format:
 #   gen /path/to/deployment-file.yaml [values.yaml file name in deploy/values]
-#   gen ${REPO_ROOT}/deploy/adapter.yaml the-values 
+#   gen ${REPO_ROOT}/deploy/adapter.yaml the-values
 gen "${REPO_ROOT}/deploy/adapter.yaml"
