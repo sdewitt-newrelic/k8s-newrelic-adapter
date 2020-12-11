@@ -1,6 +1,5 @@
 REGISTRY?=ghcr.io/kidk
 IMAGE?=k8s-newrelic-adapter
-TEMP_DIR:=$(shell mktemp -d /tmp/$(IMAGE).XXXXXX)
 OUT_DIR?=./_output
 VENDOR_DOCKERIZED?=0
 
@@ -16,21 +15,13 @@ src_deps=$(shell find pkg cmd -type f -name "*.go")
 $(OUT_DIR)/adapter: $(src_deps)
 	CGO_ENABLED=0 GOARCH=$* go build $(GOFLAGS) -o $(OUT_DIR)/$*/adapter cmd/adapter/adapter.go
 
-docker-build: test
-	cp deploy/Dockerfile $(TEMP_DIR)/Dockerfile
+build: test
+	mkdir build/
+	cp deploy/Dockerfile build/Dockerfile
+	CGO_ENABLED=0 GO111MODULE=on go build -o build/adapter cmd/adapter/adapter.go
 
-	docker run -v $(TEMP_DIR):/build -v $(shell pwd):/go/src/github.com/kidk/k8s-newrelic-adapter -e GOARCH=amd64 -e GOFLAGS="$(GOFLAGS)" -w /go/src/github.com/kidk/k8s-newrelic-adapter $(GOIMAGE) /bin/bash -c "\
-		CGO_ENABLED=0 GO111MODULE=on go build -o /build/adapter cmd/adapter/adapter.go"
-
-	docker build -t $(REGISTRY)/$(IMAGE):$(VERSION) $(TEMP_DIR)
-	rm -rf $(TEMP_DIR)
-
-build-local-image: $(OUT_DIR)/$(ARCH)/adapter
-	sed "s|BASEIMAGE|scratch|g" deploy/Dockerfile > $(TEMP_DIR)/Dockerfile
-	cp  $(OUT_DIR)/$(ARCH)/adapter $(TEMP_DIR)
-	cd $(TEMP_DIR)
-	docker build -t $(REGISTRY)/$(IMAGE):$(VERSION) $(TEMP_DIR)
-	rm -rf $(TEMP_DIR)
+image:
+	docker build -t $(REGISTRY)/$(IMAGE):$(VERSION) build/
 
 push:
 	docker push $(REGISTRY)/$(IMAGE):$(VERSION)
@@ -47,7 +38,7 @@ test:
 	CGO_ENABLED=0 GO111MODULE=on go test ./pkg/controller/...
 
 clean:
-	rm -rf ${OUT_DIR} vendor
+	rm -rf ${OUT_DIR} vendor build
 
 # Code gen helpers
 gen-apis: vendor
