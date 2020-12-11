@@ -1,13 +1,6 @@
-[![docker image
-size](https://shields.beevelop.com/docker/image/image-size/kidk/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kidk/k8s-newrelic-adapter)
-[![image
-layers](https://shields.beevelop.com/docker/image/layers/kidk/k8s-newrelic-adapter/latest.svg)](https://hub.docker.com/r/kidk/k8s-newrelic-adapter)
-[![image
-pulls](https://shields.beevelop.com/docker/pulls/kidk/k8s-newrelic-adapter.svg)](https://hub.docker.com/r/kidk/k8s-newrelic-adapter)
-
 This work is based on [kuperiu/k8s-newrelic-adapter](https://github.com/kuperiu/k8s-newrelic-adapter).
 
-# Kubernetes Custom Metrics Adapter for NewRelic
+# WIP: Kubernetes Custom Metrics Adapter for NewRelic
 
 This is an implementation of the Kubernetes [Custom Metrics API and External Metrics API](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis) for New Relic events, metrics and logs.
 
