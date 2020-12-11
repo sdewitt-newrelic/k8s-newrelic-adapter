@@ -14,7 +14,7 @@ This adapter requires the following to access data from within New Relic:
 
 - Personal API Token - Create a secret called `newrelic` with the key `personal_api_key`. (The key should be encode to base64)
 
-You can get the instruqtions on getting a personal API token on [the New Relic documentation](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#personal-api-key).
+You can get the instructions on getting a personal API token on [the New Relic documentation](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#personal-api-key).
 
 ```yaml
 apiVersion: v1
