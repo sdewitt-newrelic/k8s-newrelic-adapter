@@ -6,7 +6,13 @@ This is an implementation of the Kubernetes [Custom Metrics API and External Met
 
 This adapter allows you to scale your Kubernetes deployment using the [Horizontal Pod Autoscaler](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/) (HPA) with data coming from NewRelic and NRQL (New Relic Query Language).
 
-## Prerequisites
+## Installation instructions
+
+### Create `newrelic-custom-metrics` namespace
+
+`kubectl create namespace newrelic-custom-metrics`
+
+### Create account ID and Personal API Token secrets
 
 This adapter requires the following to access data from within New Relic:
 
@@ -16,20 +22,14 @@ This adapter requires the following to access data from within New Relic:
 
 You can get the instructions on getting a personal API token on [the New Relic documentation](https://docs.newrelic.com/docs/apis/get-started/intro-apis/types-new-relic-api-keys#personal-api-key).
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: newrelic
-  namespace: newrelic-custom-metrics
-type: Opaque
-data:
-  personal_api_key: **NEWRELIC_API_KEY**
+```
+kubectl create secret generic newrelic \
+  -n newrelic-custom-metrics \
+  --from-literal=account_id=**NEW_RELIC_ACCOUNT_ID** \
+  --from-literal=personal_api_key=**NEWRELIC_API_KEY**
 ```
 
 ## Deploy
-
-Requires a Kubernetes cluster with Metric Server deployed, for example an Amazon EKS cluster.
 
 Now deploy the adapter to your Kubernetes cluster.
 
