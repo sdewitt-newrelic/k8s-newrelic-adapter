@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/NYTimes/gziphandler v1.0.1 // indirect
+	github.com/aws/aws-sdk-go v1.25.11
 	github.com/emicklei/go-restful-swagger12 v0.0.0-20170208215640-dcef7f557305 // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/googleapis/gnostic v0.2.0 // indirect

@@ -9,14 +9,14 @@ import (
 	"k8s.io/component-base/logs"
 	"k8s.io/klog"
 
+	clientset "github.com/kidk/k8s-newrelic-adapter/pkg/client/clientset/versioned"
+	informers "github.com/kidk/k8s-newrelic-adapter/pkg/client/informers/externalversions"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/controller"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/metriccache"
+	"github.com/kidk/k8s-newrelic-adapter/pkg/newrelic"
+	cwprov "github.com/kidk/k8s-newrelic-adapter/pkg/provider"
 	basecmd "github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/cmd"
 	"github.com/kubernetes-incubator/custom-metrics-apiserver/pkg/provider"
-	clientset "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/clientset/versioned"
-	informers "github.com/kuperiu/k8s-newrelic-adapter/pkg/client/informers/externalversions"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/controller"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/metriccache"
-	"github.com/kuperiu/k8s-newrelic-adapter/pkg/newrelic"
-	cwprov "github.com/kuperiu/k8s-newrelic-adapter/pkg/provider"
 )
 
 // NewRelicAdapter represents a custom metrics BaseAdapter for NewRelic
