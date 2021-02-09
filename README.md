@@ -1,6 +1,6 @@
 This work is based on [kuperiu/k8s-newrelic-adapter](https://github.com/kuperiu/k8s-newrelic-adapter).
 
-# WIP: Kubernetes Custom Metrics Adapter for NewRelic
+# Kubernetes Custom Metrics Adapter for NewRelic
 
 This is an implementation of the Kubernetes [Custom Metrics API and External Metrics API](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-metrics-apis) for New Relic events, metrics and logs.
 
