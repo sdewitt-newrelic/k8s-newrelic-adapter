@@ -2,6 +2,8 @@ package newrelic
 
 import (
 	"fmt"
+	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 
@@ -20,7 +22,23 @@ func NewRelicClient() Client {
 	if apiKey == "" {
 		klog.V(2).Infof("an API key is required, please set the NEW_RELIC_API_KEY environment variable")
 	}
-	nr, err := newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey))
+
+	proxy := os.Getenv("NEW_RELIC_API_PROXY")
+
+	var nr *newrelic.NewRelic
+	var err error
+
+	if proxy != "" {
+		klog.V(2).Infof("using proxy %s for New Relic API calls", proxy)
+		transport := http.DefaultTransport.(*http.Transport).Clone()
+		transport.Proxy = func(*http.Request) (*url.URL, error) {
+			return url.Parse(proxy)
+		}
+		nr, err = newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey), newrelic.ConfigHTTPTransport(transport))
+	} else {
+		nr, err = newrelic.New(newrelic.ConfigPersonalAPIKey(apiKey))
+	}
+
 	if err != nil {
 		klog.V(2).Infof("failed to create a New Relic client with error %v", err)
 	}

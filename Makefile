@@ -3,7 +3,7 @@ IMAGE?=k8s-newrelic-adapter
 OUT_DIR?=./_output
 VENDOR_DOCKERIZED?=0
 
-VERSION:=latest
+VERSION?:=latest
 GOIMAGE=golang:1.13
 GOFLAGS=-mod=vendor -tags=netgo
 
